@@ -2,9 +2,9 @@ package api
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"net/http"
-	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 var router *gin.Engine
@@ -15,10 +15,6 @@ func init() {
 	router = gin.Default()
 	router.Any("/*path", func(context *gin.Context) {
 		uri := context.Param("path")
-		if !strings.Contains(uri, "bot") {
-			context.String(http.StatusNotFound, "404 Not found")
-			return
-		}
 		url := apiUrl + uri
 		req, err := http.NewRequestWithContext(context, context.Request.Method, url, context.Request.Body)
 		if err != nil {
