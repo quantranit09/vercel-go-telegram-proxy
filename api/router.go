@@ -15,7 +15,9 @@ func init() {
 	router = gin.Default()
 	router.Any("/*path", func(context *gin.Context) {
 		uri := context.Param("path")
-		url := apiUrl + uri
+		query := context.Request.URL.RawQuery
+		url := apiUrl + uri + "?" + query
+		fmt.Println(url)
 		req, err := http.NewRequestWithContext(context, context.Request.Method, url, context.Request.Body)
 		if err != nil {
 			fmt.Println(err)
